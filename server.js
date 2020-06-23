@@ -15,6 +15,9 @@ connectDB();
 
 const app = express();
 
+//initialize
+app.use(express.json({ extended: false }));
+
 app.get('/', (req, res, next) => res.send('API running'));
 
 //mount routers
