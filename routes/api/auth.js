@@ -10,7 +10,7 @@ const User = require('../../models/User');
 router.get('/', auth, async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
-    console.log(user, 'user');
+    res.json(user);
   } catch (error) {}
 });
 
