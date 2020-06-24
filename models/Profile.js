@@ -5,7 +5,7 @@ const ProfileSchema = new mongoose.Schema({
   //relationship and reference to a user
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: 'User',
+    ref: 'user',
     required: true
   },
   company: {
