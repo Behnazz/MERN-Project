@@ -133,13 +133,135 @@ router.get('/user/:user_id', async (req, res, next) => {
       select: 'name avatar'
     });
     if (!profile) {
-      return res.status(400).json({ msg: 'There is no profile for this user' });
+      return res.status(400).json({ msg: 'Profile not found' });
     }
     res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(400).json({ msg: 'Profile not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    Delete api/profile
+// @desc     Delete user profile
+// @access   Private
+router.delete('/', auth, async (req, res, next) => {
+  try {
+    //@todo- remove user posts
+
+    //remove profile
+    await Profile.findOneAndRemove({ user: req.user.id });
+    //remove user
+    await User.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: 'User removed' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
+
+// @route    PUT api/profile/experience
+// @desc      add user profile experience
+// @access   Private
+router.put(
+  '/experience',
+  [
+    auth,
+    [
+      check('title', 'Title is required').not().isEmpty(),
+      check('company', 'Company name is required').not().isEmpty(),
+      check('from', 'From date is required').not().isEmpty()
+    ]
+  ],
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const {
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description
+    } = req.body;
+
+    const newExp = { title, company, location, from, to, current, description };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      profile.experience.unshift(newExp);
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+// @route    PUT api/profile/education
+// @desc      add user profile education
+// @access   Private
+router.put(
+  '/education',
+  [
+    auth,
+    [
+      check('school', 'School is required').not().isEmpty(),
+      check('degree', 'Degree is required').not().isEmpty(),
+      check('fieldofstudy', 'Field of study is required').not().isEmpty(),
+      check('from', 'From date is required').not().isEmpty()
+    ]
+  ],
+
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description
+    } = req.body;
+
+    const newEdu = {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      profile.education.unshift(newEdu);
+
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 module.exports = router;
