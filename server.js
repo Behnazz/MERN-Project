@@ -23,7 +23,7 @@ app.get('/', (req, res, next) => res.send('API running'));
 //mount routers
 app.use('/api/users', users);
 app.use('/api/auth', auth);
-app.use('/api/post', post);
+app.use('/api/posts', post);
 app.use('/api/profile', profile);
 
 const PORT = process.env.PORT || 8000;
