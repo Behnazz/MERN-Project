@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const dotenv = require('dotenv');
+const cors = require('cors');
 //route files
 const users = require('./routes/api/users');
 const auth = require('./routes/api/auth');
@@ -14,7 +15,7 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 
 const app = express();
-
+app.use(cors());
 //initialize
 app.use(express.json({ extended: false }));
 
