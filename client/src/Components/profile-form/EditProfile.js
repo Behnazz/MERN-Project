@@ -40,9 +40,9 @@ const EditProfile = ({
             facebook: loading || !profile.social ? '' : profile.social.facebook,
             linkedin: loading || !profile.social ? '' : profile.social.linkedin,
             youtube: loading || !profile.social ? '' : profile.social.youtube,
-            instagram: loading || !profile.social ? '' : profile.social.instagram
-        })
-    }, [loading, getCurrentProfile])
+            instagram: loading || !profile.social ? '' : profile.social.instagram,
+        });
+    }, [loading, getCurrentProfile]);
     const {
         company,
         website,
@@ -64,7 +64,7 @@ const EditProfile = ({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createProfile(formData, history);
+        createProfile(formData, history, true);
     };
     return (
         <Fragment>
@@ -72,7 +72,7 @@ const EditProfile = ({
             <p className='lead'>
                 <i className='fas fa-user'></i> Let's get some information to make your
         profile stand out
-      </p>
+            </p>
             <small>* = required field</small>
             <form className='form' onSubmit={handleSubmit}>
                 <div className='form-group'>
@@ -89,7 +89,7 @@ const EditProfile = ({
                     </select>
                     <small className='form-text'>
                         Give us an idea of where you are at in your career
-          </small>
+                    </small>
                 </div>
                 <div className='form-group'>
                     <input
@@ -101,7 +101,7 @@ const EditProfile = ({
                     />
                     <small className='form-text'>
                         Could be your own company or one you work for
-          </small>
+                    </small>
                 </div>
                 <div className='form-group'>
                     <input
@@ -113,7 +113,7 @@ const EditProfile = ({
                     />
                     <small className='form-text'>
                         Could be your own or a company website
-          </small>
+                    </small>
                 </div>
                 <div className='form-group'>
                     <input
@@ -125,7 +125,7 @@ const EditProfile = ({
                     />
                     <small className='form-text'>
                         City & state suggested (eg. Boston, MA)
-          </small>
+                    </small>
                 </div>
                 <div className='form-group'>
                     <input
@@ -137,7 +137,7 @@ const EditProfile = ({
                     />
                     <small className='form-text'>
                         Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
-          </small>
+                    </small>
                 </div>
                 <div className='form-group'>
                     <input
@@ -150,7 +150,7 @@ const EditProfile = ({
                     <small className='form-text'>
                         If you want your latest repos and a Github link, include your
                         username
-          </small>
+                    </small>
                 </div>
                 <div className='form-group'>
                     <textarea
@@ -169,7 +169,7 @@ const EditProfile = ({
                         className='btn btn-light'
                     >
                         Add Social Network Links
-          </button>
+                    </button>
                     <span>Optional</span>
                 </div>
                 {displaySocialInputs && (
@@ -232,9 +232,9 @@ const EditProfile = ({
                 )}
 
                 <input type='submit' className='btn btn-primary my-1' />
-                <a className='btn btn-light my-1' href='dashboard.html'>
+                <Link className='btn btn-light my-1' to='/dashboard'>
                     Go Back
-        </a>
+                </Link>
             </form>
         </Fragment>
     );
