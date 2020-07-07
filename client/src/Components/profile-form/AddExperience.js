@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addExperience } from '../../actions/profile';
 
-const AddExperience = props => {
+const AddExperience = ({ addExperience, history }) => {
   const [formData, setFormData] = useState({
     title: '',
     company: '',
@@ -33,7 +33,10 @@ const AddExperience = props => {
       current: !current
     });
   };
-
+  const handleSubmit = e => {
+    e.preventDefault();
+    addExperience(formData, history);
+  };
   return (
     <Fragment>
       <h1 class='large text-primary'>Add An Experience</h1>
@@ -42,7 +45,7 @@ const AddExperience = props => {
         positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form class='form'>
+      <form class='form' onSubmit={handleSubmit}>
         <div class='form-group'>
           <input
             type='text'
@@ -100,6 +103,7 @@ const AddExperience = props => {
             name='to'
             value={to}
             onChange={handleInputChange}
+            disabled={toDateDisabled ? disabled : ''}
           />
         </div>
         <div class='form-group'>
