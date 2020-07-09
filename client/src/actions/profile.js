@@ -36,11 +36,9 @@ export const createProfile = (
       type: GET_PROFILE,
       payload: res.data
     });
-    dispatch(setAlert(edit ? 'Profile updated' : 'Profile Created', 'success'));
 
-    if (!edit) {
-      history.push('./dashboard'); //redirect here can't use Redirect as it action redux
-    }
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+    history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -54,10 +52,7 @@ export const createProfile = (
 };
 
 //add experience
-export const addExperience = (
-  formData,
-  history,
-) => async dispatch => {
+export const addExperience = (formData, history) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -69,9 +64,10 @@ export const addExperience = (
       type: UPDATE_PROFILE,
       payload: res.data
     });
-    dispatch(setAlert('Experience added', 'success'));
-    history.push('./dashboard'); //redirect here can't use Redirect as it action redux
 
+    dispatch(setAlert('Experience Added', 'success'));
+
+    history.push('/dashboard'); //redirect here can't use Redirect as it action redux
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -82,13 +78,10 @@ export const addExperience = (
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
-}
+};
 
-//add education 
-export const addEducation = (
-  formData,
-  history,
-) => async dispatch => {
+//add education
+export const addEducation = (formData, history) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -96,13 +89,15 @@ export const addEducation = (
       }
     };
     const res = await axios.put('api/profile/education', formData, config);
+
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
-    dispatch(setAlert('Education added', 'success'));
-    history.push('./dashboard'); //redirect here can't use Redirect as it action redux
 
+    dispatch(setAlert('Education Added', 'success'));
+
+    history.push('/dashboard'); //redirect here can't use Redirect as it action redux
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -113,4 +108,4 @@ export const addEducation = (
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
-}
+};
