@@ -11,11 +11,9 @@ const AddEducation = ({ addEducation, history }) => {
     fieldofstudy: '',
     from: '',
     to: '',
-    current: '',
+    current: false,
     description: ''
   });
-
-  const [toDateDisabled, toggleDisabled] = useState(false);
 
   const {
     school,
@@ -32,10 +30,9 @@ const AddEducation = ({ addEducation, history }) => {
       ...formData,
       [e.target.name]: e.target.value
     });
-    toggleDisabled(!toDateDisabled);
   };
 
-  const handleCheckBox = e => {
+  const handleCheckBox = () => {
     setFormData({
       ...formData,
       current: !current
@@ -45,6 +42,7 @@ const AddEducation = ({ addEducation, history }) => {
     e.preventDefault();
     addEducation(formData, history);
   };
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Add Your Education</h1>
@@ -111,7 +109,7 @@ const AddEducation = ({ addEducation, history }) => {
             name='to'
             value={to}
             onChange={handleInputChange}
-            disabled={toDateDisabled ? 'disabled' : ''}
+            disabled={current}
           />
         </div>
         <div className='form-group'>

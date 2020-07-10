@@ -5,6 +5,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
+const Post = require('../../models/Post');
 const { check, validationResult } = require('express-validator');
 
 //load env variables
@@ -156,7 +157,7 @@ router.get('/user/:user_id', async (req, res, next) => {
 router.delete('/', auth, async (req, res, next) => {
   try {
     //@todo- remove user posts
-
+    await Post.deleteMany({ user: req.user.id });
     //remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     //remove user

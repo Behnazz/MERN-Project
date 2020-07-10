@@ -15,8 +15,6 @@ const AddExperience = ({ addExperience, history }) => {
     description: ''
   });
 
-  const [toDateDisabled, toggleDisabled] = useState(false);
-
   const { title, company, location, from, to, current, description } = formData;
 
   const handleInputChange = e => {
@@ -24,7 +22,6 @@ const AddExperience = ({ addExperience, history }) => {
       ...formData,
       [e.target.name]: e.target.value
     });
-    toggleDisabled(!toDateDisabled);
   };
 
   const handleCheckBox = e => {
@@ -37,6 +34,7 @@ const AddExperience = ({ addExperience, history }) => {
     e.preventDefault();
     addExperience(formData, history);
   };
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Add An Experience</h1>
@@ -103,7 +101,7 @@ const AddExperience = ({ addExperience, history }) => {
             name='to'
             value={to}
             onChange={handleInputChange}
-            disabled={toDateDisabled ? 'disabled' : ''}
+            disabled={current}
           />
         </div>
         <div className='form-group'>
