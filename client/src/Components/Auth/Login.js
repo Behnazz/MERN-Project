@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -59,7 +59,7 @@ const Login = ({ login, isAuthenticated }) => {
       </form>
       <p className='my-1'>
         Don't have an account?
-        <Link to='/register.html'>Sign Up</Link>
+        <Link to='/register'>Sign Up</Link>
       </p>
     </Fragment>
   );
