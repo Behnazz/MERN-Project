@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { getPosts } from '../../actions/post';
@@ -26,7 +24,7 @@ const Posts = props => {
       <PostForm />
       <div className='posts'>
         {posts.map(post => (
-          <PostItem key={posts._id} post={post} />
+          <PostItem key={post._id} post={post} />
         ))}
       </div>
     </Fragment>

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
-import { connect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
 
 const PostItem = props => {
@@ -25,7 +25,7 @@ const PostItem = props => {
       </div>
       <div>
         <p className='my-1'>{text}</p>
-        <p class='post-date'>
+        <p className='post-date'>
           Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
         </p>
 
@@ -46,7 +46,7 @@ const PostItem = props => {
             >
               <i className='fas fa-thumbs-down'></i>
             </button>
-            <Link to='/post' className='btn btn-primary'>
+            <Link to={`posts/${_id}`} className='btn btn-primary'>
               Discussion{' '}
               {comments.length > 0 && (
                 <span className='comment-count'>{comments.length}</span>
@@ -80,7 +80,7 @@ PostItem.propTypes = {
   showActions: PropTypes.bool
 };
 
-const mapStateToProps = (state = {
+const mapStateToProps = state => ({
   auth: state.auth
 });
 
